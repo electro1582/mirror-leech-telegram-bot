@@ -287,7 +287,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\n<b>cc: </b>{uname}'
+                msg += f'\n<b>👤by: </b>{uname}'
         if self.isQbit and QB_SEED:
            return sendMarkup(msg, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
         else:
@@ -299,6 +299,8 @@ class MirrorListener(listeners.MirrorListeners):
                 del download_dict[self.uid]
                 count = len(download_dict)
             sendMarkup(msg, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
+            postCH(msg, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
+            postCH0(msg, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
             if count == 0:
                 self.clean()
             else:
