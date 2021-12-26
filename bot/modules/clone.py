@@ -4,7 +4,7 @@ import string
 from telegram.ext import CommandHandler
 
 from bot.helper.mirror_utils.upload_utils import gdriveTools
-from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, deleteMessage, delete_all_messages, update_all_messages, sendStatusMessage
+from bot.helper.telegram_helper.message_utils import *
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.mirror_utils.status_utils.clone_status import CloneStatus
@@ -82,12 +82,16 @@ def cloneNode(update, context):
         else:
             uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
         if uname is not None:
-            cc = f'\n\n<b>cc: </b>{uname}'
+            cc = f'\n<b>👤by: </b>{uname}'
             men = f'{uname} '
         if button in ["cancelled", ""]:
             sendMessage(men + result, context.bot, update)
+            postCH(men + result, context.bot, update)
+            postCH0(men + result, context.bot, update)
         else:
             sendMarkup(result + cc, context.bot, update, button)
+            postCH(result + cc, context.bot, update, button)
+            postCH0(result + cc, context.bot, update, button)
         if gdtot_link:
             gd.deletefile(link)
     else:
